@@ -1,17 +1,17 @@
-import DecryptedText from "@/components/bits/DecryptedText";
+import DecryptedText from '@/components/bits/DecryptedText';
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-8">
-      <DecryptedText 
-        text="South Outer Space" 
-        className="font-mono uppercase font-medium"
-        encryptedClassName="font-mono font-medium text-gray-400"
+    <div className="flex min-h-screen flex-col items-center justify-center gap-8">
+      <DecryptedText
         animateOn="view"
+        className="font-medium font-mono uppercase"
+        encryptedClassName="font-mono font-medium text-gray-400"
+        parentClassName="cursor-pointer transition-transform duration-300"
+        revealDirection="center"
         sequential={true}
         speed={80}
-        revealDirection="center"
-        parentClassName="cursor-pointer transition-transform duration-300"
+        text="South Outer Space"
       />
     </div>
   );

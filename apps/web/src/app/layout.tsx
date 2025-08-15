@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import Script from 'next/script';
+import ElevenLabsWidget from '@/components/ElevenLabsWidget';
+import WidgetErrorBoundary from '@/components/WidgetErrorBoundary';
 import './globals.css';
 
 const geistSans = Geist({
@@ -28,16 +31,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <div 
-          dangerouslySetInnerHTML={{
-            __html: '<elevenlabs-convai agent-id="agent_7701k2py9twqfw2rxfdt1z3n84m3"></elevenlabs-convai>'
-          }}
+        <WidgetErrorBoundary>
+          <ElevenLabsWidget agentId="agent_7701k2py9twqfw2rxfdt1z3n84m3" />
+        </WidgetErrorBoundary>
+        <Script
+          crossOrigin="anonymous"
+          integrity="sha384-lXgDNpZ7eW4rPE3gkg53l0sB+m1PmwxzgOUGSW4zkD/o71YlxacndiJgOqsUwv94"
+          src="https://unpkg.com/@elevenlabs/convai-widget-embed@0.1.2"
+          strategy="afterInteractive"
         />
-        <script
-          src="https://unpkg.com/@elevenlabs/convai-widget-embed"
-          async
-          type="text/javascript"
-        ></script>
       </body>
     </html>
   );
