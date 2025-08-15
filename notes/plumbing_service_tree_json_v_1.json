@@ -1,0 +1,476 @@
+{
+  "category": "Plumbing",
+  "version": "2025-08-12",
+  "id": "1c1b9e1e-6d1e-4a9c-9d53-6a3e3f3d9b10",
+  "templates": {
+    "faucetRepairReplace": {
+      "question": "What specific problem with the faucet?",
+      "type": "single-select",
+      "options": [
+        "Install Customer Supplied",
+        "Replace",
+        {
+          "label": "Repair",
+          "children": [
+            {
+              "question": "Did we install or have we repaired the faucet?",
+              "type": "single-select",
+              "options": [
+                {
+                  "label": "Yes, installed",
+                  "children": [
+                    {
+                      "question": "How recently did we install the faucet?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "4 years or less",
+                        "More than 4 years"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "label": "Yes, repaired",
+                  "children": [
+                    {
+                      "question": "How recently did we repair the faucet?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "2 years or less",
+                        "More than 2 years"
+                      ]
+                    }
+                  ]
+                },
+                "No"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "garbageDisposalRepairReplace": {
+      "question": "What specific problem with the garbage disposal?",
+      "type": "single-select",
+      "options": [
+        "Install Customer Supplied",
+        "Replace",
+        {
+          "label": "Repair",
+          "children": [
+            {
+              "question": "Did we install the garbage disposal?",
+              "type": "single-select",
+              "options": [
+                {
+                  "label": "Yes",
+                  "children": [
+                    {
+                      "question": "How recently did we install the garbage disposal?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "6 years or less",
+                        "More than 6 years"
+                      ]
+                    }
+                  ]
+                },
+                "No"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "gasLeakTestNewLine": {
+      "question": "What specific problem with gas?",
+      "type": "single-select",
+      "options": [
+        "Connect to appliance/generator",
+        "Run New Line",
+        "Test/Inspection",
+        {
+          "label": "Gas Leak",
+          "children": [
+            {
+              "question": "Did we install or have we repaired this gas line before?",
+              "type": "single-select",
+              "options": [
+                {
+                  "label": "Installed gas line",
+                  "children": [
+                    {
+                      "question": "How recently did we install this gas line?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "2 years or less",
+                        "More than 2 years"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "label": "Repaired gas line",
+                  "children": [
+                    {
+                      "question": "How recently did we repair this gas line?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "2 years or less",
+                        "More than 2 years"
+                      ]
+                    }
+                  ]
+                },
+                "No"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "pipeRepairReplace": {
+      "question": "What specific need for pipe repair/replacement?",
+      "type": "single-select",
+      "options": [
+        "I need my whole home re-piped",
+        {
+          "label": "Pipe repair",
+          "children": [
+            {
+              "question": "Did we repipe the home or repair the leak before?",
+              "type": "single-select",
+              "options": [
+                {
+                  "label": "Yes, repiped",
+                  "children": [
+                    {
+                      "question": "How recently did we repipe this home?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "10 years or less",
+                        "More than 10 years"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "label": "Yes, repaired",
+                  "children": [
+                    {
+                      "question": "How recently did we repair this leak?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "2 years or less",
+                        "More than 2 years"
+                      ]
+                    }
+                  ]
+                },
+                "No"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "sewerRepairReplace": {
+      "question": "What specific problem with the sewer?",
+      "type": "single-select",
+      "options": [
+        "Replace",
+        {
+          "label": "Repair",
+          "children": [
+            {
+              "question": "Did we install or have we repaired this sewer line before?",
+              "type": "single-select",
+              "options": [
+                {
+                  "label": "Yes",
+                  "children": [
+                    {
+                      "question": "How recently did we install or repair this sewer line?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "10 years or less",
+                        "More than 10 years"
+                      ]
+                    }
+                  ]
+                },
+                "No"
+              ]
+            }
+          ]
+        },
+        "Sewer Smell"
+      ]
+    },
+    "stoppage": {
+      "question": "Have we helped you with this stoppage before?",
+      "type": "single-select",
+      "options": [
+        {
+          "label": "Yes",
+          "children": [
+            {
+              "question": "How recently did we assist with the stoppage?",
+              "type": "single-select",
+              "options": [
+                "30 days or less",
+                "6 months or less",
+                "More than 6 months"
+              ]
+            }
+          ]
+        },
+        "No"
+      ]
+    },
+    "toiletRepairReplace": {
+      "question": "What specific problem with the toilet?",
+      "type": "single-select",
+      "options": [
+        "Install Customer Supplied",
+        "Replace",
+        {
+          "label": "Repair",
+          "children": [
+            {
+              "question": "Did we install or have we repaired the toilet before?",
+              "type": "single-select",
+              "options": [
+                {
+                  "label": "Yes, installed",
+                  "children": [
+                    {
+                      "question": "How recently did we install the toilet?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "6 years or less",
+                        "6 years or more"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "label": "Yes, repaired",
+                  "children": [
+                    {
+                      "question": "How recently did we repair the toilet?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "2 years or less",
+                        "2 years or more"
+                      ]
+                    }
+                  ]
+                },
+                "No"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "waterHeaterRepair": {
+      "question": "How old is the water heater?",
+      "type": "single-select",
+      "options": [
+        {
+          "label": "0 - 6 years",
+          "children": [
+            {
+              "question": "Did we install or have we repaired this water heater before?",
+              "type": "single-select",
+              "options": [
+                {
+                  "label": "Yes, installed",
+                  "children": [
+                    {
+                      "question": "How recently did we install this water heater?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "13 years or less",
+                        "More than 13 years"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "label": "Yes, repaired",
+                  "children": [
+                    {
+                      "question": "How recently did we repair this water heater?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "2 years or less",
+                        "More than 2 years"
+                      ]
+                    }
+                  ]
+                },
+                "No"
+              ]
+            }
+          ]
+        },
+        "More than 6 years"
+      ]
+    },
+    "waterLeak": {
+      "question": "What specific problem/request pertaining to a leak?",
+      "type": "single-select",
+      "options": [
+        {
+          "label": "Indoor/Outdoor Water Leak",
+          "children": [
+            {
+              "question": "Did we repipe the home or repair the leak before?",
+              "type": "single-select",
+              "options": [
+                {
+                  "label": "Yes, repiped",
+                  "children": [
+                    {
+                      "question": "How recently did we repipe the home?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "10 years or less",
+                        "More than 10 years"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "label": "Yes, repaired",
+                  "children": [
+                    {
+                      "question": "How recently did we repair this leak?",
+                      "type": "single-select",
+                      "options": [
+                        "30 days or less",
+                        "2 years or less",
+                        "More than 2 years"
+                      ]
+                    }
+                  ]
+                },
+                "No"
+              ]
+            }
+          ]
+        },
+        "Static/Hydrostatic Leak Check"
+      ]
+    }
+  },
+  "branches": [
+    {
+      "id": "faucet-fixture-repair-replace",
+      "label": "Faucet (Fixture) Repair/Replace",
+      "flowTemplate": "faucetRepairReplace"
+    },
+    {
+      "id": "garbage-disposal-repair-replace",
+      "label": "Garbage Disposal Repair/Replace",
+      "flowTemplate": "garbageDisposalRepairReplace"
+    },
+    {
+      "id": "gas-leak-test-new-gas-line",
+      "label": "Gas Leak / Gas Test / New Gas Line",
+      "flowTemplate": "gasLeakTestNewLine"
+    },
+    {
+      "id": "pipe-repair-replace",
+      "label": "Pipe Repair/Replace",
+      "flowTemplate": "pipeRepairReplace"
+    },
+    {
+      "id": "sewer-repair-replace",
+      "label": "Sewer Repair Replace",
+      "flowTemplate": "sewerRepairReplace"
+    },
+    { "id": "stoppage", "label": "Stoppage", "flowTemplate": "stoppage" },
+    {
+      "id": "toilet-repair-replace",
+      "label": "Toilet Repair/Replace",
+      "flowTemplate": "toiletRepairReplace"
+    },
+    {
+      "id": "water-filtration-softener",
+      "label": "Water Filtration/Softener",
+      "flow": [
+        {
+          "question": "What specific request concerning water filtration/softener?",
+          "type": "single-select",
+          "options": [
+            "Install Customer Supplied",
+            "Install/Replace",
+            "Repair",
+            "Add Salt to Softener",
+            "Filter Replacement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "water-heater-maintenance-flush",
+      "label": "Water Heater Maintenance/Flush",
+      "flow": [
+        {
+          "question": "How old is the water heater?",
+          "type": "single-select",
+          "options": ["0 - 6 years", "More than 6 years"]
+        }
+      ]
+    },
+    {
+      "id": "water-heater-repair",
+      "label": "Water Heater Repair",
+      "flowTemplate": "waterHeaterRepair"
+    },
+    {
+      "id": "water-heater-replace",
+      "label": "Water Heater Replace",
+      "flow": [
+        {
+          "question": "Is the new water heater customer supplied?",
+          "type": "single-select",
+          "options": ["Yes", "No"]
+        }
+      ]
+    },
+    { "id": "water-leak", "label": "Water Leak", "flowTemplate": "waterLeak" },
+    {
+      "id": "water-pressure",
+      "label": "Water Pressure",
+      "flow": [
+        {
+          "question": "What type of pressure problem?",
+          "type": "single-select",
+          "options": ["High Water Pressure", "Low Water Pressure"]
+        }
+      ]
+    },
+    {
+      "id": "whole-home-plumbing-inspection",
+      "label": "Whole Home Plumbing Inspection",
+      "flow": []
+    }
+  ]
+}

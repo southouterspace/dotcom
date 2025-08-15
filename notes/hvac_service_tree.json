@@ -1,0 +1,205 @@
+{
+  "category": "Heating & Cooling",
+  "version": "2025-08-12",
+  "id": "73e8454f-e05f-4af2-95e6-b38f2f2f5cd4",
+  "templates": {
+    "didWeInstallOrService": {
+      "question": "Did we install or service this unit?",
+      "type": "single-select",
+      "options": [
+        {
+          "label": "Installed equipment",
+          "children": [
+            {
+              "question": "How recently did we install this unit?",
+              "type": "single-select",
+              "options": [
+                "30 days or less",
+                "0 - 5 years",
+                "6 - 10 years",
+                "More than 10 years"
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Serviced only",
+          "children": [
+            {
+              "question": "How recently did we service this unit?",
+              "type": "single-select",
+              "options": ["30 days or less", "More than 30 days"]
+            },
+            {
+              "question": "How old is the unit?",
+              "type": "single-select",
+              "options": [
+                "0 - 5 years",
+                "6 - 10 years",
+                "More than 10 years",
+                "Unsure of age"
+              ]
+            }
+          ]
+        },
+        {
+          "label": "No",
+          "children": [
+            {
+              "question": "How old is the unit?",
+              "type": "single-select",
+              "options": [
+                "0 - 5 years",
+                "6 - 10 years",
+                "More than 10 years",
+                "Unsure of age"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "branches": [
+    {
+      "id": "no-cool-air",
+      "label": "No Cool Air/Not Cooling Enough/I Need Freon",
+      "flowTemplate": "didWeInstallOrService"
+    },
+    {
+      "id": "no-heat",
+      "label": "No Heat/Not Heating Enough",
+      "flowTemplate": "didWeInstallOrService"
+    },
+    {
+      "id": "unit-not-coming-on",
+      "label": "Unit Not Coming On",
+      "flowTemplate": "didWeInstallOrService"
+    },
+    {
+      "id": "unit-making-noise",
+      "label": "Unit Making Noise",
+      "flowTemplate": "didWeInstallOrService"
+    },
+    {
+      "id": "ac-frozen",
+      "label": "There’s ice on the outside line/AC is Frozen",
+      "flowTemplate": "didWeInstallOrService"
+    },
+    {
+      "id": "strange-smell",
+      "label": "Unit has a strange smell when running",
+      "flowTemplate": "didWeInstallOrService"
+    },
+    {
+      "id": "airflow-balancing",
+      "label": "Airflow Balancing",
+      "flowTemplate": "didWeInstallOrService"
+    },
+    {
+      "id": "thermostat-issues",
+      "label": "Thermostat Issues",
+      "flowTemplate": "didWeInstallOrService"
+    },
+    {
+      "id": "ac-leaking",
+      "label": "A/C Leaking",
+      "flowTemplate": "didWeInstallOrService"
+    },
+    {
+      "id": "new-ac-unit",
+      "label": "I Need a New A/C Unit",
+      "flow": []
+    },
+    {
+      "id": "need-insulation",
+      "label": "I Need Insulation",
+      "flow": []
+    },
+    {
+      "id": "realtor-homebuyer-hvac-inspection",
+      "label": "Realtor/Homebuyer HVAC Inspection",
+      "flow": []
+    },
+    {
+      "id": "dehumidifier-repair-replace",
+      "label": "Dehumidifier Repair/Replace",
+      "flow": [
+        {
+          "question": "What specific problem with the dehumidifier?",
+          "type": "single-select",
+          "options": ["Replace/Install", "Repair"]
+        }
+      ]
+    },
+    {
+      "id": "ductwork-repair-replace",
+      "label": "Ductwork Repair/Replace",
+      "flow": [
+        {
+          "question": "Is this residence a permanent structure or a manufactured home?",
+          "type": "single-select",
+          "options": ["Permanent structure", "Manufactured home"]
+        }
+      ]
+    },
+    {
+      "id": "new-thermostat",
+      "label": "I Need A New Thermostat",
+      "flow": [
+        {
+          "question": "How old is the unit?",
+          "type": "single-select",
+          "options": [
+            "0 - 5 years",
+            "6 - 10 years",
+            "More than 10 years",
+            "Unsure of age"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tune-up-inspection",
+      "label": "Tune-up & Inspection",
+      "flow": [
+        {
+          "question": "How many units do you have?",
+          "type": "single-select",
+          "options": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+        },
+        {
+          "question": "How old is the unit?",
+          "type": "single-select",
+          "options": [
+            "0 - 5 years",
+            "6 - 10 years",
+            "More than 10 years",
+            "Unsure of age"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "filter-change",
+      "label": "Filter Change",
+      "flow": [
+        {
+          "question": "Do you already have new filters?",
+          "type": "single-select",
+          "options": ["Yes", "No"]
+        },
+        {
+          "question": "How old is the unit?",
+          "type": "single-select",
+          "options": [
+            "0 - 5 years",
+            "6 - 10 years",
+            "More than 10 years",
+            "Unsure of age"
+          ]
+        }
+      ]
+    }
+  ]
+}
