@@ -31,14 +31,18 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        
+        {/* ElevenLabs Convai Widget - positioned in bottom right */}
         <WidgetErrorBoundary>
-          <ElevenLabsWidget agentId="agent_7701k2py9twqfw2rxfdt1z3n84m3" />
+          <div className="fixed bottom-4 right-4 w-[350px] h-[500px] z-50">
+            <ElevenLabsWidget agentId="agent_7701k2py9twqfw2rxfdt1z3n84m3" />
+          </div>
         </WidgetErrorBoundary>
-        <Script
-          crossOrigin="anonymous"
-          integrity="sha384-lXgDNpZ7eW4rPE3gkg53l0sB+m1PmwxzgOUGSW4zkD/o71YlxacndiJgOqsUwv94"
-          src="https://unpkg.com/@elevenlabs/convai-widget-embed@0.1.2"
-          strategy="afterInteractive"
+        
+        {/* Load the ElevenLabs Convai script */}
+        <Script 
+          src="https://elevenlabs.io/convai-widget/index.js" 
+          strategy="afterInteractive" 
         />
       </body>
     </html>
