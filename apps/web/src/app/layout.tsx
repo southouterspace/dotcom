@@ -28,6 +28,16 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <div 
+          dangerouslySetInnerHTML={{
+            __html: '<elevenlabs-convai agent-id="agent_7701k2py9twqfw2rxfdt1z3n84m3"></elevenlabs-convai>'
+          }}
+        />
+        <script
+          src="https://unpkg.com/@elevenlabs/convai-widget-embed"
+          async
+          type="text/javascript"
+        ></script>
       </body>
     </html>
   );

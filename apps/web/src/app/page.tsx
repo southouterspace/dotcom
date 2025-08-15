@@ -2,7 +2,7 @@ import DecryptedText from "@/components/bits/DecryptedText";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex flex-col items-center justify-center gap-8">
       <DecryptedText 
         text="South Outer Space" 
         className="font-mono uppercase font-medium"
