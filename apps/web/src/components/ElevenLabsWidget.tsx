@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 
-// Regex for validating agent ID format
-const AGENT_ID_PATTERN = /^agent_[a-zA-Z0-9_]+$/;
+// Regex for validating agent ID format - support both formats
+const AGENT_ID_PATTERN = /^(agent_[a-zA-Z0-9_]+|[a-zA-Z0-9_]+)$/;
 
 type ElevenLabsWidgetProps = {
   agentId: string;
@@ -18,7 +18,7 @@ export default function ElevenLabsWidget({
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!(container && agentId)) {
+    if (!container || !agentId) {
       return;
     }
 
@@ -28,28 +28,18 @@ export default function ElevenLabsWidget({
       return;
     }
 
-    // Create the custom element safely
-    const widget = document.createElement('elevenlabs-convai');
-    widget.setAttribute('agent-id', agentId);
-
-    // Add error handling
-    widget.addEventListener('error', (event) => {
-      console.error('ElevenLabs widget error:', event);
-    });
-
-    container.appendChild(widget);
+    // Set the HTML content safely after validation
+    container.innerHTML = `<elevenlabs-convai agent-id="${agentId}"></elevenlabs-convai>`;
 
     // Cleanup function
     return () => {
-      if (container.contains(widget)) {
-        container.removeChild(widget);
-      }
+      container.innerHTML = '';
     };
   }, [agentId]);
 
   return (
     <div
-      className={className}
+      className={`w-full h-full ${className || ''}`}
       data-testid="elevenlabs-widget"
       ref={containerRef}
     />
