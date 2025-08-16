@@ -1,7 +1,8 @@
+import { VercelToolbar } from '@vercel/toolbar/next';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import Script from 'next/script';
-import ElevenLabsWidget from '@/components/ElevenLabsWidget';
+import FeatureFlaggedContent from '@/components/FeatureFlaggedContent';
 import WidgetErrorBoundary from '@/components/WidgetErrorBoundary';
 import './globals.css';
 
@@ -22,28 +23,31 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
+  const shouldInjectToolbar = process.env.NODE_ENV === 'development';
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        
+
         {/* ElevenLabs Convai Widget - positioned in bottom right */}
         <WidgetErrorBoundary>
-          <div className="fixed bottom-4 right-4 w-[350px] h-[500px] z-50">
-            <ElevenLabsWidget agentId="agent_7701k2py9twqfw2rxfdt1z3n84m3" />
+          <div className="fixed right-4 bottom-4 z-50 h-[500px] w-[350px]">
+            <FeatureFlaggedContent />
           </div>
         </WidgetErrorBoundary>
-        
+
         {/* Load the ElevenLabs Convai script */}
-        <Script 
-          src="https://elevenlabs.io/convai-widget/index.js" 
-          strategy="afterInteractive" 
+        <Script
+          src="https://elevenlabs.io/convai-widget/index.js"
+          strategy="afterInteractive"
         />
+
+        {shouldInjectToolbar && <VercelToolbar />}
       </body>
     </html>
   );

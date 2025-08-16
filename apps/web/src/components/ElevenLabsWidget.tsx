@@ -18,13 +18,12 @@ export default function ElevenLabsWidget({
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || !agentId) {
+    if (!(container && agentId)) {
       return;
     }
 
     // Validate agent ID format for security
     if (!AGENT_ID_PATTERN.test(agentId)) {
-      console.warn('Invalid agent ID format:', agentId);
       return;
     }
 
@@ -39,7 +38,7 @@ export default function ElevenLabsWidget({
 
   return (
     <div
-      className={`w-full h-full ${className || ''}`}
+      className={`h-full w-full ${className || ''}`}
       data-testid="elevenlabs-widget"
       ref={containerRef}
     />

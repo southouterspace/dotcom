@@ -1,3 +1,5 @@
+'use client';
+
 import type React from 'react';
 import { type CSSProperties, useEffect, useRef } from 'react';
 
@@ -59,9 +61,13 @@ class Noise {
     this.seed(seed);
   }
   seed(seed: number) {
-    if (seed > 0 && seed < 1) seed *= 65_536;
+    if (seed > 0 && seed < 1) {
+      seed *= 65_536;
+    }
     seed = Math.floor(seed);
-    if (seed < 256) seed |= seed << 8;
+    if (seed < 256) {
+      seed |= seed << 8;
+    }
     for (let i = 0; i < 256; i++) {
       const v =
         i & 1 ? this.p[i] ^ (seed & 255) : this.p[i] ^ ((seed >> 8) & 255);
@@ -95,14 +101,14 @@ class Noise {
   }
 }
 
-interface Point {
+type Point = {
   x: number;
   y: number;
   wave: { x: number; y: number };
   cursor: { x: number; y: number; vx: number; vy: number };
-}
+};
 
-interface Mouse {
+type Mouse = {
   x: number;
   y: number;
   lx: number;
@@ -113,9 +119,9 @@ interface Mouse {
   vs: number;
   a: number;
   set: boolean;
-}
+};
 
-interface Config {
+type Config = {
   lineColor: string;
   waveSpeedX: number;
   waveSpeedY: number;
@@ -126,9 +132,9 @@ interface Config {
   maxCursorMove: number;
   xGap: number;
   yGap: number;
-}
+};
 
-interface WavesProps {
+type WavesProps = {
   lineColor?: string;
   backgroundColor?: string;
   waveSpeedX?: number;
@@ -142,7 +148,7 @@ interface WavesProps {
   maxCursorMove?: number;
   style?: CSSProperties;
   className?: string;
-}
+};
 
 const Waves: React.FC<WavesProps> = ({
   lineColor = 'black',
@@ -160,8 +166,7 @@ const Waves: React.FC<WavesProps> = ({
   className = '',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
   const boundingRef = useRef<{
     width: number;
     height: number;
@@ -230,13 +235,16 @@ const Waves: React.FC<WavesProps> = ({
   ]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const svg = svgRef.current;
     const container = containerRef.current;
-    if (!(canvas && container)) return;
-    ctxRef.current = canvas.getContext('2d');
+    if (!(svg && container)) {
+      return;
+    }
 
     function setSize() {
-      if (!(container && canvas)) return;
+      if (!(container && svg)) {
+        return;
+      }
       const rect = container.getBoundingClientRect();
       boundingRef.current = {
         width: rect.width,
@@ -244,8 +252,9 @@ const Waves: React.FC<WavesProps> = ({
         left: rect.left,
         top: rect.top,
       };
-      canvas.width = rect.width;
-      canvas.height = rect.height;
+      svg.setAttribute('width', rect.width.toString());
+      svg.setAttribute('height', rect.height.toString());
+      svg.setAttribute('viewBox', `0 0 ${rect.width} ${rect.height}`);
     }
 
     function setLines() {
@@ -306,8 +315,8 @@ const Waves: React.FC<WavesProps> = ({
             p.cursor.vy += Math.sin(mouse.a) * f * l * mouse.vs * 0.000_65;
           }
 
-          p.cursor.vx += (0 - p.cursor.x) * tension;
-          p.cursor.vy += (0 - p.cursor.y) * tension;
+          p.cursor.vx += Number(p.cursor.x) * tension;
+          p.cursor.vy += Number(p.cursor.y) * tension;
           p.cursor.vx *= friction;
           p.cursor.vy *= friction;
           p.cursor.x += p.cursor.vx * 2;
@@ -330,32 +339,69 @@ const Waves: React.FC<WavesProps> = ({
       return { x: Math.round(x * 10) / 10, y: Math.round(y * 10) / 10 };
     }
 
+    function initializeSVG() {
+      const svg = svgRef.current;
+      if (!svg) {
+        return;
+      }
+
+      // Create a single path element for all lines
+      const path = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'path'
+      );
+      path.setAttribute('stroke', configRef.current.lineColor);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke-width', '1');
+      path.setAttribute('vector-effect', 'non-scaling-stroke');
+      path.setAttribute('stroke-linecap', 'round');
+      path.setAttribute('stroke-linejoin', 'round');
+
+      svg.appendChild(path);
+    }
+
     function drawLines() {
-      const { width, height } = boundingRef.current;
-      const ctx = ctxRef.current;
-      if (!ctx) return;
-      ctx.clearRect(0, 0, width, height);
-      ctx.beginPath();
-      ctx.strokeStyle = configRef.current.lineColor;
+      const svg = svgRef.current;
+      if (!svg) {
+        return;
+      }
+
+      const path = svg.querySelector('path');
+      if (!path) {
+        return;
+      }
+
+      let pathData = '';
+
       linesRef.current.forEach((points) => {
+        if (points.length === 0) {
+          return;
+        }
+
         let p1 = moved(points[0], false);
-        ctx.moveTo(p1.x, p1.y);
+        pathData += `M ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} `;
+
         points.forEach((p, idx) => {
           const isLast = idx === points.length - 1;
           p1 = moved(p, !isLast);
-          const p2 = moved(
-            points[idx + 1] || points[points.length - 1],
-            !isLast
-          );
-          ctx.lineTo(p1.x, p1.y);
-          if (isLast) ctx.moveTo(p2.x, p2.y);
+          pathData += `L ${p1.x.toFixed(1)} ${p1.y.toFixed(1)} `;
+
+          if (isLast) {
+            const p2 = moved(points[idx + 1] || points.at(-1), !isLast);
+            pathData += `M ${p2.x.toFixed(1)} ${p2.y.toFixed(1)} `;
+          }
         });
       });
-      ctx.stroke();
+
+      path.setAttribute('d', pathData);
+      // Update stroke color in case it changed
+      path.setAttribute('stroke', configRef.current.lineColor);
     }
 
     function tick(t: number) {
-      if (!container) return;
+      if (!container) {
+        return;
+      }
       const mouse = mouseRef.current;
       mouse.sx += (mouse.x - mouse.sx) * 0.1;
       mouse.sy += (mouse.y - mouse.sy) * 0.1;
@@ -379,6 +425,14 @@ const Waves: React.FC<WavesProps> = ({
     function onResize() {
       setSize();
       setLines();
+      // Clear existing SVG content and reinitialize
+      const svg = svgRef.current;
+      if (svg) {
+        while (svg.firstChild) {
+          svg.removeChild(svg.firstChild);
+        }
+        initializeSVG();
+      }
     }
     function onMouseMove(e: MouseEvent) {
       updateMouse(e.clientX, e.clientY);
@@ -403,6 +457,7 @@ const Waves: React.FC<WavesProps> = ({
 
     setSize();
     setLines();
+    initializeSVG();
     frameIdRef.current = requestAnimationFrame(tick);
     window.addEventListener('resize', onResize);
     window.addEventListener('mousemove', onMouseMove);
@@ -435,7 +490,15 @@ const Waves: React.FC<WavesProps> = ({
           willChange: 'transform',
         }}
       />
-      <canvas className="block h-full w-full" ref={canvasRef} />
+      <svg
+        className="block h-full w-full"
+        ref={svgRef}
+        style={{
+          display: 'block',
+          width: '100%',
+          height: '100%',
+        }}
+      />
     </div>
   );
 };
